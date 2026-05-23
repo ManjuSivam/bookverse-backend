@@ -1,7 +1,8 @@
 package com.bookverse.book.mapper;
 
+import com.bookverse.book.dtos.BookDetailsResponseDto;
 import com.bookverse.book.dtos.BookRequestDto;
-import com.bookverse.book.dtos.BookResponseDto;
+import com.bookverse.book.dtos.BookSummaryResponseDto;
 import com.bookverse.book.model.Book;
 
 import org.springframework.stereotype.Component;
@@ -9,8 +10,8 @@ import org.springframework.stereotype.Component;
 @Component
 public class BookMapper {
 
-    public static BookResponseDto convertBookToBookDto(Book book) {
-        BookResponseDto bookDto = new BookResponseDto();
+    public static BookSummaryResponseDto convertBookToBookDto(Book book) {
+        BookSummaryResponseDto bookDto = new BookSummaryResponseDto();
         bookDto.setId(book.getId());
         bookDto.setTitle(book.getTitle());
         bookDto.setAuthor(book.getAuthor());
@@ -32,6 +33,37 @@ public class BookMapper {
         book.setLanguage(bookRequestDto.getLanguage());
         return book;
 
+    }
+
+    public static BookDetailsResponseDto convertToBookDetailsResponseDto(Book book) {
+
+        BookDetailsResponseDto dto = new BookDetailsResponseDto();
+
+        dto.setId(book.getId());
+        dto.setTitle(book.getTitle());
+        dto.setAuthor(book.getAuthor());
+        dto.setDescription(book.getDescription());
+        dto.setPrice(book.getPrice());
+        dto.setCoverImage(book.getCoverImage());
+        dto.setLanguage(book.getLanguage());
+
+        dto.setNumberOfPages(
+                book.getNumberOfPages());
+
+        dto.setQuantityAvailable(
+                book.getQuantityAvailable());
+
+        dto.setRating(book.getRating());
+
+        dto.setReview(book.getReview());
+
+        dto.setPublicationDate(
+                book.getPublicationDate());
+
+        dto.setCategoryName(
+                book.getCategory().getName());
+
+        return dto;
     }
 
     // convertToBookDetailsDto()

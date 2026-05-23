@@ -1,8 +1,9 @@
 package com.bookverse.book.dtos;
 
-// import org.apache.logging.log4j.core.config.plugins.validation.constraints.NotBlank;
+import java.time.LocalDate;
 
 import jakarta.validation.constraints.*;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -26,6 +27,20 @@ public class BookRequestDto {
     private String coverImage;
 
     private String language;
+
+    @Positive(message = "Pages must be positive")
+    private Integer numberOfPages;
+
+    @PositiveOrZero(message = "Quantity cannot be negative")
+    private Integer quantityAvailable;
+
+    @DecimalMin(value = "0.0")
+    @DecimalMax(value = "5.0")
+    private Double rating;
+
+    private String review;
+
+    private LocalDate publicationDate;
 
     @NotNull(message = "Category Id is required")
     private Long categoryId;

@@ -61,22 +61,13 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(errorResponseDto, HttpStatus.BAD_REQUEST);
     }
 
-    @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<ErrorResponseDto> handleValidationExceptions(MethodArgumentNotValidException ex) {
-        String errorMessage = ex.getBindingResult().getFieldErrors().stream()
-                .map(FieldError::getDefaultMessage)
-                .collect(Collectors.joining(", "));
-
-        ErrorResponseDto errorResponseDto = new ErrorResponseDto();
-        errorResponseDto.setMessage(errorMessage);
-        errorResponseDto.setStatus(HttpStatus.BAD_REQUEST);
-        errorResponseDto.setTimestamp(LocalDateTime.now());
-        return new ResponseEntity<>(errorResponseDto, HttpStatus.BAD_REQUEST);
-    }
-
     @ExceptionHandler(Exception.class)
-    public ResponseEntity<String> handleGlobalException(Exception e) {
-        return new ResponseEntity<>("Something went wrong", HttpStatus.INTERNAL_SERVER_ERROR);
+    public ResponseEntity<ErrorResponseDto> handleGlobalException(Exception e) {
+        ErrorResponseDto errorResponseDto = new ErrorResponseDto();
+        errorResponseDto.setMessage("Something went wrong");
+        errorResponseDto.setStatus(HttpStatus.INTERNAL_SERVER_ERROR);
+        errorResponseDto.setTimestamp(LocalDateTime.now());
+        return new ResponseEntity<>(errorResponseDto, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
 }

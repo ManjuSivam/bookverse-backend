@@ -71,4 +71,8 @@ public class BookServiceImpl implements BookService {
 
     }
 
+    public List<Book> searchBooks(String title, String author) {
+        return this.bookRepo.findByTitleContainingIgnoreCaseOrAuthorContainingIgnoreCase(title, author);
+    }
+
 }
