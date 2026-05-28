@@ -21,4 +21,6 @@ public interface BookService {
 
     public List<Book> searchBooks(String title, String author);
 
+    public List<Book> sortBooks(String field, String direction);
+
 }

@@ -3,6 +3,7 @@ package com.bookverse.book.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.bookverse.book.dtos.BookRequestDto;
@@ -73,6 +74,11 @@ public class BookServiceImpl implements BookService {
 
     public List<Book> searchBooks(String title, String author) {
         return this.bookRepo.findByTitleContainingIgnoreCaseOrAuthorContainingIgnoreCase(title, author);
+    }
+
+    public List<Book> sortBooks(String field, String direction) {
+        Sort sort = direction.equalsIgnoreCase("desc") ? Sort.by(field).descending() : Sort.by(field).ascending();
+        return this.bookRepo.findAll(sort);
     }
 
 }

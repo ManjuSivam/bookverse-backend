@@ -58,4 +58,14 @@ public class BookController {
         return bookDtos;
     }
 
+    @GetMapping("sort")
+    public List<BookSummaryResponseDto> sortBooks(@RequestParam String field, @RequestParam String direction) {
+        List<BookSummaryResponseDto> booksDto = new ArrayList<>();
+        List<Book> books = this.bookService.sortBooks(field, direction);
+        for (Book book : books) {
+            booksDto.add(BookMapper.convertBookToBookDto(book));
+        }
+        return booksDto;
+    }
+
 }
